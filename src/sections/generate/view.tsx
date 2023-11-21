@@ -137,7 +137,7 @@ export default function GenerateView() {
 
   return (
     <Container maxWidth="lg">
-      <Typography variant="h2"> DUNCHESS LOTTO </Typography>
+      <Typography variant="h2"> หนึ่ง100 LOTTO </Typography>
       <Container maxWidth="xs">
         <MobileDatePicker
           orientation="portrait"
