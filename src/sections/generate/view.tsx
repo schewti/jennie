@@ -23,6 +23,7 @@ import {
 import Iconify from 'src/components/iconify';
 import html2canvas from 'html2canvas';
 import { isIOS } from 'src/utils/device';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import LottoType1 from './lotto-type-1';
 
 // ----------------------------------------------------------------------
@@ -33,7 +34,6 @@ export default function GenerateView() {
   const [lottoList, setLottoList] = useState(LOTTO);
   // const lottoNumberList = lottoList.map(() => randomLotto());
   const [refs, setRefs] = useState([] as React.RefObject<HTMLDivElement>[]);
-  const [open, setOpen] = useState(true);
 
   // const refs = lottoList.map(() => React.createRef<HTMLDivElement>());
   const [lottoNumberList, setLottoNumberList] = useState([] as RandomLottoType1[]);
@@ -124,49 +124,79 @@ export default function GenerateView() {
     setChecked(newChecked);
   };
 
-  const handleClick = useCallback(() => {
-    setOpen((prev) => !prev);
-  }, []);
+  const [isAll, setIsAll] = useState(true);
+  const toggleAll = () => {
+    if (isAll) {
+      setChecked([]);
+    } else {
+      setChecked(lottoList);
+    }
+    setIsAll(!isAll);
+  };
+  const [dateValue, setDateValue] = useState<Date>(new Date());
 
   return (
     <Container maxWidth="lg">
       <Typography variant="h2"> DUNCHESS LOTTO </Typography>
-      <Button variant="contained" onClick={handleClick} style={{ marginRight: 10 }}>
-        {open ? 'HIDDEN' : 'SHOW'}
-      </Button>
-      <Button variant="contained" onClick={downloadCheckedLottoImage}>
-        DOWNLOAD SELECTED
-      </Button>
       <Container maxWidth="xs">
-        <Collapse in={open} unmountOnExit>
-          <List style={{ maxHeight: '500px', overflowY: 'auto' }}>
-            {lottoList.map((value, index) => {
-              const labelId = `checkbox-list-label-${value}`;
-              return (
-                <ListItemButton key={value} role={undefined} dense onClick={handleCheck(value)}>
-                  <ListItemIcon>
-                    <Checkbox
-                      edge="start"
-                      checked={checked.indexOf(value) !== -1}
-                      tabIndex={-1}
-                      disableRipple
-                      inputProps={{ 'aria-labelledby': labelId }}
-                    />
-                  </ListItemIcon>
+        <MobileDatePicker
+          orientation="portrait"
+          label="date"
+          value={dateValue}
+          onChange={(newValue) => {
+            if (newValue === null) {
+              setDateValue(new Date());
 
-                  <ListItemText
-                    id={labelId}
-                    primary={value}
-                    secondary={getLottoNumberPreview(lottoNumberList[index])}
+              return;
+            }
+
+            setDateValue(newValue);
+          }}
+          slotProps={{
+            textField: {
+              fullWidth: true,
+              margin: 'normal',
+            },
+          }}
+        />
+        <Button variant="contained" onClick={toggleAll} style={{ marginRight: 10 }}>
+          {isAll ? 'DESELECT ALL' : 'SELECT ALL'}
+        </Button>
+        <Button variant="contained" onClick={downloadCheckedLottoImage}>
+          DOWNLOAD SELECTED
+        </Button>
+        <List style={{ maxHeight: '500px', overflowY: 'auto' }}>
+          {lottoList.map((value, index) => {
+            const labelId = `checkbox-list-label-${value}`;
+            return (
+              <ListItemButton key={value} role={undefined} dense onClick={handleCheck(value)}>
+                <ListItemIcon>
+                  <Checkbox
+                    edge="start"
+                    checked={checked.indexOf(value) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    inputProps={{ 'aria-labelledby': labelId }}
                   />
-                </ListItemButton>
-              );
-            })}
-          </List>
-        </Collapse>
+                </ListItemIcon>
+
+                <ListItemText
+                  id={labelId}
+                  primary={value}
+                  secondary={getLottoNumberPreview(lottoNumberList[index])}
+                />
+              </ListItemButton>
+            );
+          })}
+        </List>
       </Container>
 
-      {/* <LottoType1 lottoName={lottoList[1]} lottoNumbers={lottoNumberList[1]} ref={refs[1]} /> */}
+      {/* <LottoType1
+        lottoName={lottoList[1]}
+        lottoNumbers={lottoNumberList[1]}
+        ref={refs[1]}
+        date={dateValue}
+      /> */}
 
       <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
         {lottoNumberList.map((value, index) => (
@@ -175,6 +205,7 @@ export default function GenerateView() {
             lottoName={lottoList[index]}
             lottoNumbers={value}
             ref={refs[index]}
+            date={dateValue}
           />
         ))}
       </div>

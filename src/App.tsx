@@ -18,7 +18,9 @@ import MotionLazy from 'src/components/animate/motion-lazy';
 import { SettingsProvider, SettingsDrawer } from 'src/components/settings';
 // auth
 import { AuthProvider, AuthConsumer } from 'src/auth/context/jwt';
-
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import th from 'date-fns/locale/th';
 // ----------------------------------------------------------------------
 
 export default function App() {
@@ -47,13 +49,15 @@ export default function App() {
         themeStretch: false,
       }}
     >
-      <ThemeProvider>
-        <MotionLazy>
-          <SettingsDrawer />
-          <ProgressBar />
-          <Router />
-        </MotionLazy>
-      </ThemeProvider>
+      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={th}>
+        <ThemeProvider>
+          <MotionLazy>
+            <SettingsDrawer />
+            <ProgressBar />
+            <Router />
+          </MotionLazy>
+        </ThemeProvider>
+      </LocalizationProvider>
     </SettingsProvider>
   );
 }

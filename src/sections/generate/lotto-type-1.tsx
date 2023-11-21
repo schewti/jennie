@@ -18,9 +18,11 @@ export default React.forwardRef(
     {
       lottoName,
       lottoNumbers,
+      date,
     }: {
       lottoName: string;
       lottoNumbers: RandomLottoType1;
+      date: Date;
     },
     ref
   ) => (
@@ -38,6 +40,19 @@ export default React.forwardRef(
           position: 'relative',
         }}
       >
+        <p
+          className="number-highlight"
+          style={{
+            position: 'absolute',
+            margin: 0,
+            top: 10,
+            right: 10,
+            fontSize: 50,
+            fontWeight: 'bold',
+          }}
+        >
+          {date.toLocaleDateString('en-GB')}
+        </p>
         <p
           style={{
             color: '#000',
