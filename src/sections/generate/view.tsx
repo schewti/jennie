@@ -30,11 +30,12 @@ import LottoType1 from './lotto-type-1';
 
 export default function GenerateView() {
   const isIos = isIOS();
-  const [checked, setChecked] = useState(['']);
+  const [checked, setChecked] = useState(LOTTO);
   const [lottoList, setLottoList] = useState(LOTTO);
   // const lottoNumberList = lottoList.map(() => randomLotto());
   const [refs, setRefs] = useState([] as React.RefObject<HTMLDivElement>[]);
-
+  const [isAll, setIsAll] = useState(true);
+  const [dateValue, setDateValue] = useState<Date>(new Date());
   // const refs = lottoList.map(() => React.createRef<HTMLDivElement>());
   const [lottoNumberList, setLottoNumberList] = useState([] as RandomLottoType1[]);
 
@@ -124,7 +125,6 @@ export default function GenerateView() {
     setChecked(newChecked);
   };
 
-  const [isAll, setIsAll] = useState(true);
   const toggleAll = () => {
     if (isAll) {
       setChecked([]);
@@ -133,11 +133,10 @@ export default function GenerateView() {
     }
     setIsAll(!isAll);
   };
-  const [dateValue, setDateValue] = useState<Date>(new Date());
 
   return (
     <Container maxWidth="lg">
-      <Typography variant="h2"> หนึ่ง100 LOTTO </Typography>
+      <Typography variant="h2"> เป็นหนึ่ง100 </Typography>
       <Container maxWidth="xs">
         <MobileDatePicker
           orientation="portrait"
