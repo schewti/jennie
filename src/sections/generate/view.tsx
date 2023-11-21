@@ -44,6 +44,66 @@ export default function GenerateView() {
     setRefs(lottoList.map(() => React.createRef<HTMLDivElement>()));
   }, [lottoList]);
 
+  // const viewAllLottoViewImage = async () => {
+  //   const checkedLottos = lottoList.filter((lottoName) => checked.includes(lottoName));
+  //   const newWindow = window.open('', '_blank');
+  //   if (!newWindow) return;
+
+  //   const imagePromises = checkedLottos
+  //     .map(async (lottoName) => {
+  //       const index = lottoList.indexOf(lottoName);
+  //       const ref = refs[index];
+  //       if (!ref.current) return null;
+
+  //       const canvas = await html2canvas(ref.current, { scale: 1 });
+
+  //       const image = canvas.toDataURL('image/png', 1.0);
+  //       newWindow.document.body.innerHTML += `<img src="${image}" alt="${checkedLottos[index]}" style="margin-bottom: 20px;"/><br/>`;
+
+  //       return image;
+  //     })
+  //     .filter(Boolean);
+
+  //   await Promise.all(imagePromises);
+  // };
+
+  const viewAllLottoViewImage = async () => {
+    const checkedLottos = lottoList.filter((lottoName) => checked.includes(lottoName));
+    const newWindow = window.open('', '_blank');
+    if (!newWindow) return;
+
+    newWindow.document.write('<p>Loading... <span id="loading-percent">0%</span></p>');
+
+    const updateLoadingPercentage = (percent: number) => {
+      const loadingElement = newWindow.document.getElementById('loading-percent');
+      if (loadingElement) {
+        loadingElement.textContent = `${percent}%`;
+      }
+    };
+
+    let loadedCount = 0;
+    const imagePromises = checkedLottos
+      .map((lottoName) => {
+        const index = lottoList.indexOf(lottoName);
+        const ref = refs[index];
+        if (!ref.current) return null;
+
+        return html2canvas(ref.current, { scale: 1 }).then((canvas) => {
+          loadedCount++;
+          updateLoadingPercentage(Math.round((loadedCount / checkedLottos.length) * 100));
+          return canvas.toDataURL('image/png', 1.0);
+        });
+      })
+      .filter(Boolean);
+
+    const images = await Promise.all(imagePromises);
+
+    newWindow.document.body.innerHTML = '';
+    images.forEach((image, index) => {
+      newWindow.document.body.innerHTML += `<img src="${image}" alt="${checkedLottos[index]}" style="margin-bottom: 20px;"/><br/>`;
+    });
+  };
+
   const generateLottoViewImage = async (
     ref: React.RefObject<HTMLDivElement>,
     lottoName: string
@@ -161,7 +221,10 @@ export default function GenerateView() {
         <Button variant="contained" onClick={toggleAll} style={{ marginRight: 10 }}>
           {isAll ? 'DESELECT ALL' : 'SELECT ALL'}
         </Button>
-        <Button variant="contained" onClick={downloadCheckedLottoImage}>
+        {/* <Button variant="contained" onClick={downloadCheckedLottoImage} style={{ marginRight: 10 }}>
+          DOWNLOAD SELECTED
+        </Button> */}
+        <Button variant="contained" onClick={viewAllLottoViewImage}>
           DOWNLOAD SELECTED
         </Button>
         <List style={{ maxHeight: '500px', overflowY: 'auto' }}>
