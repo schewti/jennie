@@ -24,32 +24,6 @@ export default React.forwardRef(
     },
     ref
   ) => (
-    // const [lottoNumbers, setLottoNumbers] = useState(randomLotto());
-
-    // const generateRandomLotto = () => {
-    //   const newLottoNumbers = randomLotto();
-    //   setLottoNumbers(newLottoNumbers);
-    // };
-
-    // const handleDownloadImage = async () => {
-    //   if (lottoContainerRef.current) {
-    //     // Capture the content of the LottoGenerator component using html2canvas
-    //     const canvas = await html2canvas(lottoContainerRef.current, { scale: 1 });
-    //     const dataURL = canvas.toDataURL();
-
-    //     // Create a download link and trigger a download
-    //     const a = document.createElement('a');
-    //     a.href = dataURL;
-    //     a.target = '_blank';
-    //     a.download = 'lotto.jpg';
-    //     a.click();
-    //   }
-    // };
-
-    // return (
-
-    // );
-
     <>
       <Box
         ref={ref}
@@ -70,6 +44,7 @@ export default React.forwardRef(
             position: 'absolute',
             top: 48,
             left: '50%',
+            width: 800,
             transform: 'translateX(-50%)',
             fontSize: 75,
             fontWeight: 'bold',
