@@ -13,15 +13,20 @@ import { useOffSetTop } from 'src/hooks/use-off-set-top';
 // components
 import Logo from 'src/components/logo';
 //
+import { useResponsive } from 'src/hooks/use-responsive';
 import { HEADER } from '../config-layout';
 import HeaderShadow from './header-shadow';
 import SettingsButton from './settings-button';
+import NavDesktop from './nav/desktop/nav-desktop';
+import { navConfig } from './config-navigation';
+import NavMobile from './nav/mobile/nav-mobile';
 
 // ----------------------------------------------------------------------
 
 export default function HeaderSimple() {
   const theme = useTheme();
 
+  const mdUp = useResponsive('up', 'md');
   const offsetTop = useOffSetTop(HEADER.H_DESKTOP);
 
   return (
@@ -50,7 +55,9 @@ export default function HeaderSimple() {
         <Logo />
 
         <Stack direction="row" alignItems="center" spacing={1}>
-          <SettingsButton />
+          <NavDesktop offsetTop={offsetTop} data={navConfig} />
+          {/* {!mdUp && <NavMobile offsetTop={offsetTop} data={navConfig} />} */}
+          {/* <SettingsButton /> */}
         </Stack>
       </Toolbar>
 
