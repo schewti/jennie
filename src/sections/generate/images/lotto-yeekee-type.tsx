@@ -58,7 +58,7 @@ export default React.forwardRef(
             className="number-highlight"
             style={{
               position: 'absolute',
-              top: 245 + index * 80,
+              top: 250 + index * 80,
               left: 105,
               fontSize: 60,
               fontWeight: 'bold',
@@ -72,7 +72,7 @@ export default React.forwardRef(
             className="number-highlight"
             style={{
               position: 'absolute',
-              top: 245 + index * 80,
+              top: 250 + index * 80,
               left: 470,
               fontSize: 60,
               fontWeight: 'bold',
@@ -86,7 +86,7 @@ export default React.forwardRef(
             className="number-highlight"
             style={{
               position: 'absolute',
-              top: 245 + index * 80,
+              top: 250 + index * 80,
               left: 700,
               fontSize: 60,
               fontWeight: 'bold',
