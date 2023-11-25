@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 // layouts
 import CompactLayout from 'src/layouts/compact';
 
@@ -20,7 +20,14 @@ export const mainRoutes = [
     children: [
       {
         path: '/',
-        element: <PageGenerate />,
+        element: <Navigate to="/generate" replace />,
+      },
+      {
+        path: 'generate',
+        children: [
+          { index: true, element: <PageGenerate /> },
+          { path: ':name', element: <PageGenerate /> },
+        ],
       },
       { path: '404', element: <Page404 /> },
     ],

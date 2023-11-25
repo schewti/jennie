@@ -1,10 +1,19 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router';
 // sections
-import GenerateView from 'src/sections/generate/view';
+import GenerateNormal from 'src/sections/generate/normal';
 
 // ----------------------------------------------------------------------
 
 export default function PageGenerate() {
-  return <GenerateView />;
+  const params = useParams();
+
+  const { name = 'normal' } = params;
+
+  if (name === 'normal') {
+    return <GenerateNormal />;
+  }
+
+  return <GenerateNormal />;
 }

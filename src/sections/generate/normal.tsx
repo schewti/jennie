@@ -24,11 +24,11 @@ import Iconify from 'src/components/iconify';
 import html2canvas from 'html2canvas';
 import { isIOS } from 'src/utils/device';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-import LottoType1 from './lotto-type-1';
+import LottoType1 from './images/lotto-type-1';
 
 // ----------------------------------------------------------------------
 
-export default function GenerateView() {
+export default function GenerateNormal() {
   const isIos = isIOS();
   const [checked, setChecked] = useState(LOTTO);
   const [lottoList, setLottoList] = useState(LOTTO);
