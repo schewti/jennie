@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 // components
 import { useSettingsContext } from 'src/components/settings';
 import React, { useRef, useState } from 'react';
-import { RandomLottoType1, randomLotto } from 'src/utils/lotto';
+import { RandomLottoNormalType, randomLotto } from 'src/utils/lotto';
 import { Button, Grid, IconButton } from '@mui/material';
 import Iconify from 'src/components/iconify';
 import html2canvas from 'html2canvas';
@@ -21,7 +21,7 @@ export default React.forwardRef(
       date,
     }: {
       lottoName: string;
-      lottoNumbers: RandomLottoType1;
+      lottoNumbers: RandomLottoNormalType;
       date: Date;
     },
     ref
@@ -30,7 +30,7 @@ export default React.forwardRef(
       <Box
         ref={ref}
         style={{
-          backgroundImage: 'url(/assets/lotto/type1.jpg)',
+          backgroundImage: 'url(/assets/lotto/normal.jpg)',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center',

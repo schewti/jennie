@@ -8,7 +8,7 @@ import { createRoot } from 'react-dom/client';
 // components
 import { useSettingsContext } from 'src/components/settings';
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { LOTTO, RandomLottoType1, randomLotto } from 'src/utils/lotto';
+import { LOTTO, RandomLottoNormalType, randomLotto } from 'src/utils/lotto';
 import {
   Button,
   Checkbox,
@@ -24,7 +24,7 @@ import Iconify from 'src/components/iconify';
 import html2canvas from 'html2canvas';
 import { isIOS } from 'src/utils/device';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-import LottoType1 from './images/lotto-type-1';
+import LottoNormalType from './images/lotto-normal-type';
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ export default function GenerateNormal() {
   const [isAll, setIsAll] = useState(true);
   const [dateValue, setDateValue] = useState<Date>(new Date());
   // const refs = lottoList.map(() => React.createRef<HTMLDivElement>());
-  const [lottoNumberList, setLottoNumberList] = useState([] as RandomLottoType1[]);
+  const [lottoNumberList, setLottoNumberList] = useState([] as RandomLottoNormalType[]);
 
   useEffect(() => {
     setLottoNumberList(lottoList.map(() => randomLotto()));
@@ -160,7 +160,7 @@ export default function GenerateNormal() {
     }
   };
 
-  const getLottoNumberPreview = (lottoNumber: RandomLottoType1) => {
+  const getLottoNumberPreview = (lottoNumber: RandomLottoNormalType) => {
     if (!lottoNumber) {
       return '';
     }
@@ -253,7 +253,7 @@ export default function GenerateNormal() {
         </List>
       </Container>
 
-      {/* <LottoType1
+      {/* <LottoNormalType
         lottoName={lottoList[1]}
         lottoNumbers={lottoNumberList[1]}
         ref={refs[1]}
@@ -262,7 +262,7 @@ export default function GenerateNormal() {
 
       <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
         {lottoNumberList.map((value, index) => (
-          <LottoType1
+          <LottoNormalType
             key={index}
             lottoName={lottoList[index]}
             lottoNumbers={value}

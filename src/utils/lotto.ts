@@ -82,7 +82,7 @@ export const LOTTO = [
   'หวยลาว VIP',
 ];
 
-export type RandomLottoType1 = {
+export type RandomLottoNormalType = {
   mainNumber: string;
   singleNumber: {
     first: string;
@@ -95,7 +95,7 @@ export type RandomLottoType1 = {
   tripleNumber: string[];
 };
 
-export const randomLotto = (): RandomLottoType1 => {
+export const randomLotto = (): RandomLottoNormalType => {
   const twoNum = randomTwoDifferentNumber(0, 9);
   const singleNumber = [twoNum[0], twoNum[1]];
   const mainNumber = randomFromList(singleNumber, 1);
