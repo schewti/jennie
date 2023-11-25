@@ -137,6 +137,28 @@ export const randomLotto = (): RandomLottoNormalType => {
   };
 };
 
+export type RandomLottoYeekeeType = {
+  round: string;
+  firstNumber: string;
+  secondNumber: string;
+};
+
+export const randomYeekeeLotto = (total: number): RandomLottoYeekeeType[] => {
+  const result: RandomLottoYeekeeType[] = [];
+
+  for (let i = 0; i < total; i++) {
+    const doubleNumber = randomTwoDifferentNumber(0, 9);
+
+    result.push({
+      round: (i + 1).toString(),
+      firstNumber: doubleNumber[0].toString(),
+      secondNumber: doubleNumber[1].toString(),
+    });
+  }
+
+  return result;
+};
+
 const randomTwoDifferentNumber = (min: number, max: number) => {
   const first = Math.floor(Math.random() * (max - min + 1)) + min;
   let second = Math.floor(Math.random() * (max - min + 1)) + min;
